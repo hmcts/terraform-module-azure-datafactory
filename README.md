@@ -7,7 +7,7 @@ Terraform module for [Azure DataFactory](https://learn.microsoft.com/en-us/azure
 <!-- todo update module name -->
 ```hcl
 module "datafactory" {
-  source = "../"
+  source = "git@github.com:hmcts/terraform-module-azure-datafactory?ref=main"
   env    = var.env
 
   product   = "platops"
