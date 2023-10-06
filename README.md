@@ -71,6 +71,8 @@ module "todo_resource_name" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_id"></a> [id](#output\_id) | n/a |
+| <a name="output_identity"></a> [identity](#output\_identity) | n/a |
 | <a name="output_resource_group_location"></a> [resource\_group\_location](#output\_resource\_group\_location) | n/a |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
 <!-- END_TF_DOCS -->
