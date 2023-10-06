@@ -13,10 +13,6 @@ variable "product" {
   type        = string
 }
 
-variable "project" {
-  description = "Project name - sds or cft."
-}
-
 variable "component" {
   description = "https://hmcts.github.io/glossary/#component"
   type        = string
