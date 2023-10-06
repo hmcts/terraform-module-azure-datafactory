@@ -11,5 +11,5 @@ output "id" {
 }
 
 output "identity" {
-  value = azurerm_data_factory.this.identity[0]
+  value = length(azurerm_data_factory.this.identity) > 0 ? azurerm_data_factory.this.identity[0] : null
 }
