@@ -8,6 +8,8 @@ resource "azurerm_data_factory_linked_service_key_vault" "this" {
   annotations              = each.value.annotations
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
+
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
 }
 
 resource "azurerm_data_factory_linked_service_sql_server" "this" {
@@ -20,6 +22,8 @@ resource "azurerm_data_factory_linked_service_sql_server" "this" {
   annotations              = each.value.annotations
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
+
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "this" {
@@ -33,6 +37,8 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "this" {
   annotations              = each.value.annotations
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
+
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
 }
 
 resource "azurerm_data_factory_linked_service_azure_databricks" "this" {
@@ -65,4 +71,6 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "this" {
       spark_environment_variables = new_cluster_config.value.spark_env_vars
     }
   }
+
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
 }
