@@ -12,8 +12,8 @@ resource "null_resource" "private_endpoint_approvals" {
   provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
     command     = <<-EOT
-                  az account set --subscription $SUB_ID
-                  endpoints=$(az network private-endpoint-connection list --id $RESOURCE_ID --query "[?starts_with(properties.privateLinkServiceConnectionState.description, 'Requested by DataFactory') && properties.privateLinkServiceConnectionState.status == 'Pending'].id" --output json)
+                  az account set --subscription ${data.azurerm_subscription.current.subscription_id}
+                  endpoints=$(az network private-endpoint-connection list --id ${each.value.resource_id} --query "[?starts_with(properties.privateLinkServiceConnectionState.description, 'Requested by DataFactory') && properties.privateLinkServiceConnectionState.status == 'Pending'].id" --output json)
                   endpointsLength=$(echo "$endpoints" | jq "length - 1")
                   if [ $endpointsLength -lt 0 ]; then
                     echo "No pending private endpoint connections found."
@@ -24,12 +24,6 @@ resource "null_resource" "private_endpoint_approvals" {
                     done
                   fi
     EOT
-
-    environment = {
-      SUB_ID      = data.azurerm_subscription.current.subscription_id
-      RESOURCE_ID = each.value.resource_id
-    }
   }
-
   depends_on = [azurerm_data_factory_managed_private_endpoint.this]
 }
