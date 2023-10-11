@@ -84,6 +84,19 @@ variable "linked_mssql_server" {
   description = "Map of objects describing the SQL Servers to link to the Data Factory."
   type = map(object({
     server_fqdn              = string
+    description              = optional(string)
+    integration_runtime_name = optional(string)
+    annotations              = optional(list(string))
+    parameters               = optional(map(any))
+    additional_properties    = optional(map(any))
+  }))
+  default = {}
+}
+
+variable "linked_mssql_databases" {
+  description = "Map of objects describing the Azure SQL Databases to link to the Data Factory."
+  type = map(object({
+    server_fqdn              = string
     database_name            = string
     description              = optional(string)
     integration_runtime_name = optional(string)

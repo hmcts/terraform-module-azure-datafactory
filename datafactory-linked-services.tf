@@ -16,7 +16,7 @@ resource "azurerm_data_factory_linked_service_sql_server" "this" {
   for_each                 = var.linked_mssql_server
   name                     = each.key
   data_factory_id          = azurerm_data_factory.this.id
-  connection_string        = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=${each.value.server_fqdn};Initial Catalog=${each.value.database_name}"
+  connection_string        = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=${each.value.server_fqdn}"
   integration_runtime_name = each.value.integration_runtime_name
   description              = each.value.description
   annotations              = each.value.annotations
@@ -24,6 +24,19 @@ resource "azurerm_data_factory_linked_service_sql_server" "this" {
   additional_properties    = each.value.additional_properties
 
   depends_on = [azurerm_data_factory_managed_private_endpoint.this]
+}
+
+resource "azurerm_data_factory_linked_service_azure_sql_database" "this" {
+  for_each                 = var.linked_mssql_databases
+  name                     = each.key
+  data_factory_id          = azurerm_data_factory.this.id
+  use_managed_identity     = each.value.use_managed_identity
+  connection_string        = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=${each.value.server_fqdn};Initial Catalog=${each.value.database_name}"
+  integration_runtime_name = each.value.integration_runtime_name
+  description              = each.value.description
+  annotations              = each.value.annotations
+  parameters               = each.value.parameters
+  additional_properties    = each.value.additional_properties
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "this" {
