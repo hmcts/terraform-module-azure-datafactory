@@ -9,7 +9,7 @@ resource "azurerm_data_factory_linked_service_key_vault" "this" {
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this, null_resource.private_endpoint_approvals]
 }
 
 resource "azurerm_data_factory_linked_service_sql_server" "this" {
@@ -23,7 +23,7 @@ resource "azurerm_data_factory_linked_service_sql_server" "this" {
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this, null_resource.private_endpoint_approvals]
 }
 
 resource "azurerm_data_factory_linked_service_azure_sql_database" "this" {
@@ -37,6 +37,8 @@ resource "azurerm_data_factory_linked_service_azure_sql_database" "this" {
   annotations              = each.value.annotations
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
+
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this, null_resource.private_endpoint_approvals]
 }
 
 resource "azurerm_data_factory_linked_service_azure_blob_storage" "this" {
@@ -52,7 +54,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "this" {
   parameters               = each.value.parameters
   additional_properties    = each.value.additional_properties
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this, null_resource.private_endpoint_approvals]
 }
 
 resource "azurerm_data_factory_linked_service_azure_databricks" "this" {
@@ -86,5 +88,5 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "this" {
     }
   }
 
-  depends_on = [azurerm_data_factory_managed_private_endpoint.this]
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this, null_resource.private_endpoint_approvals]
 }
