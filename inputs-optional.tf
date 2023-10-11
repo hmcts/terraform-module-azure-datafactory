@@ -98,6 +98,7 @@ variable "linked_mssql_databases" {
   type = map(object({
     server_fqdn              = string
     database_name            = string
+    use_managed_identity     = optional(bool, true)
     description              = optional(string)
     integration_runtime_name = optional(string)
     annotations              = optional(list(string))
