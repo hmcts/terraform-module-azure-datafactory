@@ -13,7 +13,7 @@ resource "null_resource" "private_endpoint_approvals" {
     interpreter = ["/bin/bash", "-c"]
     command     = <<-EOT
                   az account set --subscription $SUB_ID
-                  endpoints=$(az network private-endpoint-connection list --id $RESOURCE_ID --query "[?properties.privateLinkServiceConnectionState.description.contains(@, 'Requested by DataFactory') && properties.privateLinkServiceConnectionState.status == 'Pending'].id" --output json)
+                  endpoints=$(az network private-endpoint-connection list --id $RESOURCE_ID --query "[?starts_with(properties.privateLinkServiceConnectionState.description, 'Requested by DataFactory') && properties.privateLinkServiceConnectionState.status == 'Pending'].id" --output json)
                   endpointsLength=$(echo "$endpoints" | jq "length - 1")
                   if [ $endpointsLength -lt 0 ]; then
                     echo "No pending private endpoint connections found."
