@@ -97,7 +97,8 @@ variable "linked_mssql_server" {
 variable "linked_blob_storage" {
   description = "Map of objects describing the blob storage accounts to link to the Data Factory."
   type = map(object({
-    connection_string        = string
+    connection_string        = optional(string)
+    service_endpoint         = optional(string)
     use_managed_identity     = optional(bool, true)
     description              = optional(string)
     integration_runtime_name = optional(string)

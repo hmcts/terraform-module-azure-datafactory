@@ -31,6 +31,7 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "this" {
   name                     = each.key
   data_factory_id          = azurerm_data_factory.this.id
   connection_string        = each.value.connection_string
+  service_endpoint         = each.value.service_endpoint
   use_managed_identity     = each.value.use_managed_identity
   integration_runtime_name = each.value.integration_runtime_name
   description              = each.value.description
