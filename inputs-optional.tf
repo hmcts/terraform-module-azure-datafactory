@@ -61,8 +61,9 @@ variable "private_endpoint_subnet_id" {
 variable "managed_private_endpoints" {
   description = "Map of objects describing the managed virtual network private endpoints to create. Required managed_virtual_network_enabled to be true."
   type = map(object({
-    subresource_name = string
-    resource_id      = string
+    subresource_name    = string
+    resource_id         = string
+    is_managed_resource = optional(bool, false)
   }))
   default = {}
 }
