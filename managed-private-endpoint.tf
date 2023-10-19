@@ -4,6 +4,10 @@ resource "azurerm_data_factory_managed_private_endpoint" "this" {
   data_factory_id    = azurerm_data_factory.this.id
   target_resource_id = each.value.resource_id
   subresource_name   = each.value.subresource_name
+
+  timeouts {
+    create = "60m"
+  }
 }
 
 resource "azurerm_data_factory_managed_private_endpoint" "dependants" {
@@ -12,6 +16,10 @@ resource "azurerm_data_factory_managed_private_endpoint" "dependants" {
   data_factory_id    = azurerm_data_factory.this.id
   target_resource_id = each.value.resource_id
   subresource_name   = each.value.subresource_name
+
+  timeouts {
+    create = "60m"
+  }
 
   depends_on = [azurerm_data_factory_managed_private_endpoint.this]
 }
@@ -35,5 +43,5 @@ resource "null_resource" "private_endpoint_approvals" {
                   fi
     EOT
   }
-  depends_on = [azurerm_data_factory_managed_private_endpoint.this,azurerm_data_factory_managed_private_endpoint.dependants]
+  depends_on = [azurerm_data_factory_managed_private_endpoint.this, azurerm_data_factory_managed_private_endpoint.dependants]
 }
