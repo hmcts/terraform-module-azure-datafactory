@@ -43,5 +43,14 @@ resource "null_resource" "private_endpoint_approvals" {
                   fi
     EOT
   }
-  depends_on = [azurerm_data_factory_managed_private_endpoint.this, azurerm_data_factory_managed_private_endpoint.dependants]
+  depends_on = [
+    azurerm_data_factory_managed_private_endpoint.this,
+    azurerm_data_factory_managed_private_endpoint.dependants
+  ]
+  lifecycle {
+    replace_triggered_by = [
+      azurerm_data_factory_managed_private_endpoint.this,
+      azurerm_data_factory_managed_private_endpoint.dependants
+    ]
+  }
 }
