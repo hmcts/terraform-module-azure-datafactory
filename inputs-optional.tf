@@ -152,6 +152,9 @@ variable "linked_databricks" {
 
 variable "global_parameters" {
   description = "Map of global parameters to set on the Data Factory."
-  type        = map(string)
-  default     = {}
+  type = map(object({
+    value = string
+    type  = string
+  }))
+  default = {}
 }
