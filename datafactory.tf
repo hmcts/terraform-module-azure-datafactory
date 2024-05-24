@@ -14,6 +14,14 @@ resource "azurerm_data_factory" "this" {
       identity_ids = identity.value.identity_ids
     }
   }
+
+  dynamic "global_parameters" {
+    for_each = var.global_parameters
+    content {
+      name  = global_parameters.key
+      value = global_parameters.value
+    }
+  }
 }
 
 resource "azurerm_private_endpoint" "this" {

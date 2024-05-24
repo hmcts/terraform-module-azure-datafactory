@@ -149,3 +149,9 @@ variable "linked_databricks" {
   }))
   default = {}
 }
+
+variable "global_parameters" {
+  description = "Map of global parameters to set on the Data Factory."
+  type        = map(string)
+  default     = {}
+}
