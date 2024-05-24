@@ -15,12 +15,12 @@ resource "azurerm_data_factory" "this" {
     }
   }
 
-  dynamic "global_parameters" {
+  dynamic "global_parameter" {
     for_each = var.global_parameters
     content {
-      name  = global_parameters.key
-      value = global_parameters.value.value
-      type  = global_parameters.value.type
+      name  = global_parameter.key
+      value = global_parameter.value.value
+      type  = global_parameter.value.type
     }
   }
 }
