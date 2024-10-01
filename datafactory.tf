@@ -23,6 +23,18 @@ resource "azurerm_data_factory" "this" {
       type  = global_parameter.value.type
     }
   }
+
+  dynamic "github_configuration" {
+    for_each = var.github_configuration
+    content {
+      account_name       = github_configuration.key
+      branch_name        = github_configuration.value.branch_name
+      git_url            = github_configuration.value.git_url
+      repository_name    = github_configuration.value.repository_name
+      root_folder        = github_configuration.value.root_folder
+      publishing_enabled = github_configuration.value.publishing_enabled
+    }
+  }
 }
 
 resource "azurerm_private_endpoint" "this" {
