@@ -168,4 +168,5 @@ variable "github_configuration" {
     root_folder        = string
     publishing_enabled = bool
   }))
+  default = {}
 }
